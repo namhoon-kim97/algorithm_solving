@@ -13,10 +13,7 @@ t = int(input())
 for _ in range(t):
     n = int(input())
     min_num = 10000
-    for i in range(n):
+    for i in range(n // 2, 1, -1):
         if a[i] and a[n - i]:
-            if min_num > abs(n - 2 * i):
-                ans_a = i
-                ans_b = n - i
-                min_num = abs(n - i * 2)
-    print(f"{ans_a} {ans_b}")
+            print(f"{i} {n - i}")
+            break
