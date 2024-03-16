@@ -2,22 +2,28 @@ import sys
 
 input = sys.stdin.readline
 
-def solution(row, col, diag1, diag2):
-    if row == n:
+
+def solution(cur):
+    if cur == n:
         global cnt
         cnt += 1
         return
-    avilable_positions = ((1 << n) - 1) & ~(col | diag1 | diag2)
-    while avilable_positions:
-        position = avilable_positions & -avilable_positions
-        avilable_positions -= position
-        solution(
-            row + 1, col | position, (diag1 | position) << 1, (diag2 | position) >> 1
-        )
+
+    for i in range(n):
+        if not flag_a[cur + i] and not flag_b[cur - i + n - 1] and not vis_col[i]:
+            vis_col[i] = True
+            flag_a[cur + i] = True
+            flag_b[cur - i + n - 1] = True
+            solution(cur + 1)
+            vis_col[i] = False
+            flag_a[cur + i] = False
+            flag_b[cur - i + n - 1] = False
 
 
 cnt = 0
 n = int(input())
-
-solution(0, 0, 0, 0)
+vis_col = [False] * n  # 세로
+flag_a = [False] * n * 2  # 주대각선
+flag_b = [False] * n * 2  # 부대각선
+solution(0)
 print(cnt)
