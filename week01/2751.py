@@ -6,6 +6,8 @@ input = sys.stdin.readline
 def merge(st, en):
     mid = (st + en) // 2
     aidx, bidx = st, mid
+    if a[mid - 1] <= a[mid]:
+        return  # 최선의 경우
     for i in range(st, en):
         if aidx >= mid:
             temp[i] = a[bidx]
