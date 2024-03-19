@@ -44,5 +44,5 @@ def solution(a):
 n = int(input())
 
 dots = [list(map(int, input().split())) for _ in range(n)]
-
+dots.sort()
 print(solution(dots))
