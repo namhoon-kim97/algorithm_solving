@@ -43,6 +43,6 @@ def solution(a):
 
 n = int(input())
 
-a = [list(map(int, input().split())) for _ in range(n)]
-
-print(solution(a))
+dots = [list(map(int, input().split())) for _ in range(n)]
+dots.sort()
+print(solution(dots))
