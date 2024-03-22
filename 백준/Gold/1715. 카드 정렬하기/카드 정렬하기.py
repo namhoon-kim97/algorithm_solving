@@ -1,4 +1,4 @@
-import sys, math
+import sys
 from heapq import *
 
 input = sys.stdin.readline
@@ -10,10 +10,9 @@ for i in range(n):
     x = int(input())
     heappush(h, x)
 
-cnt = 0
 while len(h) > 1:
     x = heappop(h)
     y = heappop(h)
     heappush(h, x + y)
-    cnt += x + y
-print(cnt)
+    sum += (x + y)
+print(sum)
