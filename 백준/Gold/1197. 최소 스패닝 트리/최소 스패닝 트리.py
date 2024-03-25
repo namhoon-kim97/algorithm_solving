@@ -16,10 +16,10 @@ def is_diff_group(a, b):
         return False
     if p[a] == p[b]:
         p[a] += 1
-    if p[a] < p[b]:  # b그룹이 더 큰 경우
-        p[a] = b
-    else:
+    if p[a] < p[b]:  # b그룹이 더 높은 루트
         p[b] = a
+    else:  # a그룹이 더 높은 경우
+        p[a] = b
     return True
 
 
