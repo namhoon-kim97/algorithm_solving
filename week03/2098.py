@@ -25,7 +25,6 @@ def solution(cur, visited):
         if not visited & (1 << i) and w[cur][i] > 0:
             # i번 도시를 방문한 상태로 변경
             new_visited = visited | (1 << i)
-            print(new_visited)
             # 재귀적으로 다음 도시 방문 처리
             cost = solution(i, new_visited) + w[cur][i]
             min_cost = min(min_cost, cost)
