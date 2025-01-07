@@ -6,25 +6,14 @@ bool solution(string word) {
 	stack<char> st;
 
 	for (auto a : word) {
-		st.push(a);
-	}
-
-	stack<char> st2;
-	while(!st.empty()) {
-		char temp = st.top(); st.pop();
-		if (!st.empty() && temp == st.top()) {
+		if (!st.empty() && st.top() == a) {
 			st.pop();
-			continue;
 		}
-		if (!st2.empty() && st2.top() == temp) {
-			st2.pop();
-			continue;
+		else {
+			st.push(a);
 		}
-		st2.push(temp);
 	}
-	if (!st.empty() || !st2.empty())
-		return false;
-	return true;
+	return st.empty();
 }
 
 int main() {
