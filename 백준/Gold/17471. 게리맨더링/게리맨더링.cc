@@ -73,8 +73,7 @@ int main() {
 			}
 		}
 
-		if (solution(start1, 1) != countBits(i)) continue;
-		if (solution(start2, 0) != n - countBits(i)) continue;
+		if (solution(start1, 1) + solution(start2, 0) != n) continue;
 		
 		int sum2 = sum - sum1;
 		res = min(res, abs(sum1 - sum2));
