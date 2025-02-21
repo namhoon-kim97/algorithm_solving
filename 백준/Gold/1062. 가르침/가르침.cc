@@ -1,75 +1,54 @@
 #include <bits/stdc++.h>
+
 using namespace std;
-
 int n, k;
-vector<string> arr;
-const string essential = "antic";
-set<char> learned;
-int maxReadable = 0;
-
-int countWords(set<char>& learned) {
-	int cnt = 0;
-	for (auto& word : arr) {
-		bool readable = true;
-		for (auto& ch : word) {
-			if (learned.find(ch) == learned.end()) {
-				readable = false;
-				break;
-			}
+vector<int> words;
+int res, alphaMask;
+bool vis[26];
+void dfs(int idx, int cnt, int mask) {
+	if (cnt == (k - 5)) {
+		// 판별
+		int cntW = 0;
+		for (auto a : words) {
+			if ((a & mask) == a) cntW++;
 		}
-		if (readable) cnt++;
-	}
-	return cnt;
-}
-
-void dfs(int idx, int cnt) {
-	if (cnt == k - 5) {
-		maxReadable = max(maxReadable, countWords(learned));
+		res = max(res, cntW);
 		return;
 	}
 
 	for (int i = idx; i < 26; i++) {
-		char ch = 'a' + i;
-		if (essential.find(ch) == string::npos && learned.find(ch) == learned.end()) {
-			learned.insert(ch);
-			dfs(i + 1, cnt + 1);
-			learned.erase(ch);
+		if ((mask & (1 << i)) == 0) {
+			dfs(i + 1, cnt + 1, mask | (1 << i	));
 		}
 	}
-
-
 }
+
 
 int main() {
 	ios::sync_with_stdio(0);
 	cin.tie(0);
-
 	cin >> n >> k;
-	arr.resize(n);
 	for (int i = 0; i < n; i++) {
-		string s;
-		cin >> s;
-		s = s.substr(4, s.size() - 4 - 4);
-		set<char> uniqueChars;
-		for (char ch : s) {
-			if (essential.find(ch) == string::npos) {
-				uniqueChars.insert(ch);
-			}
+		string temp;
+		cin >> temp;
+		int wordMask = 0;
+		for (char c : temp) {
+			wordMask |= (1 << (c - 'a'));
 		}
-		arr[i] = string(uniqueChars.begin(), uniqueChars.end());
+		
+		words.push_back(wordMask);
 	}
-
 	if (k < 5) {
 		cout << 0;
 		return 0;
 	}
 
-	
-	for (char ch : essential) {
-		learned.insert(ch);
-	}
+	alphaMask |= (1 << ('a' - 'a'));
+	alphaMask |= (1 << ('n' - 'a'));
+	alphaMask |= (1 << ('t' - 'a'));
+	alphaMask |= (1 << ('i' - 'a'));
+	alphaMask |= (1 << ('c' - 'a'));
 
-
-	dfs(0, 0);
-	cout << maxReadable << endl;
+	dfs(0, 0, alphaMask);
+	cout << res;
 }
