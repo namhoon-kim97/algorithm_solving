@@ -6,7 +6,7 @@ int res = INT_MAX;
 int n;
 
 void solution(int cnt, int idx) {
-	if (cnt == n / 2) {
+	if (cnt == (n / 2) - 1) {
 		int startSum = 0;
 		int linkSum = 0;
 		for (int i = 1; i <= n; i++) {
@@ -36,7 +36,7 @@ int main() {
 	for (int i = 1; i <= n; i++) 
 		for (int j = 1; j <= n; j++)
 			cin >> arr[i][j];
-	
-	solution(0,1);
+	vis[1] = true;
+	solution(0,2);
 	cout << res;
 }
