@@ -9,27 +9,24 @@ int main() {
 
 	int k, l;
 	cin >> k >> l;
-	set<string> ans;
-	unordered_map<int, string> um;
-	unordered_map<string, int> um2;
+
+	unordered_map<string, int> um;
 	for (int i = 0; i < l; i++) {
 		string x;
 		cin >> x;
-		
-		if (ans.count(x)) {
-			um[um2[x]] = "-1";
-		}
-		um2[x] = i+1;
-		um[um2[x]] = x;
-		ans.insert(x);
+		um[x] = i;
+	}
+
+	priority_queue<pair<int, string>, vector<pair<int,string>>, greater<pair<int,string>>> pq;
+	for (auto cur : um) {
+		pq.push({ cur.second, cur.first });
 	}
 	
 	int cnt = 0;
-	for (int i = 1; i <= l; i++) {
-		if (um[i] != "-1") {
-			cout << um[i] << '\n';
-			cnt++;
-		}
+	while (!pq.empty()) {
+		cout << pq.top().second << '\n';
+		pq.pop();
+		cnt++;
 		if (cnt == k) break;
 	}
 }
