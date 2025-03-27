@@ -27,10 +27,10 @@ int main() {
 	int st = 0;
 	int en = 1000000001;
 	int ans = en;
-	while (st <= en) {
+	while (st < en) {
 		int mid = (st + en) / 2;
 		if (solution(mid)) {
-			en = mid - 1;
+			en = mid ;
 			ans = mid;
 		}
 		else st = mid + 1;
