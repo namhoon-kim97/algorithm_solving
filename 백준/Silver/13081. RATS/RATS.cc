@@ -18,43 +18,6 @@ string addNumber(string a, string b) {
     return ret;
 }
 
-bool is_chain(const string& s) {
-    int n = s.size();
-    int i = 0;
-
-    if (n < 7) return false;
-
-    if (s[i] == '1' && s[i + 1] == '2' && s[i + 2] == '3') {
-        i += 3;
-        bool hasMany = false;
-        while (i < n && s[i] == '3') {
-            i++;
-            hasMany = true;
-        }
-        if (!hasMany) return false;
-        while (i < n && s[i] == '4') {
-            i++;
-        }
-        return i == n;
-    }
-
-    if (s[i] == '5' && s[i + 1] == '5' && s[i + 2] == '6') {
-        i += 3;
-        bool hasMany = false;
-        while (i < n && s[i] == '6') {
-            i++;
-            hasMany = true;
-        }
-        if (!hasMany) return false;
-        while (i < n && s[i] == '7') {
-            i++;
-        }
-        return i == n;
-    }
-
-    return false;
-}
-
 string sortDigitsAndRemoveLeadingZeros(const string& num) {
     string sortedNum = num;
     sort(sortedNum.begin(), sortedNum.end());
