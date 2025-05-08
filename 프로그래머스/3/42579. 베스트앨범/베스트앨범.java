@@ -13,7 +13,7 @@ class Solution {
     
     public int[] solution(String[] genres, int[] plays) {
         List<Integer> temp = new ArrayList<>();
-        Map<String, Integer> map = new TreeMap<>(Collections.reverseOrder());
+        Map<String, Integer> map = new HashMap<>();
         Map<String, PriorityQueue<Pair>> map2 = new HashMap<>();
         
         for (int i = 0; i < genres.length; i++){
@@ -40,11 +40,7 @@ class Solution {
                 if (!map2.get(key).isEmpty())
                     temp.add(map2.get(key).poll().second);
         }
-        int[] answer = new int[temp.size()];
-        for (int i = 0; i < temp.size(); i++)
-            answer[i] = temp.get(i);
-        
-        
-        return answer;
+  
+        return temp.stream().mapToInt(i -> i).toArray();
     }
 }
