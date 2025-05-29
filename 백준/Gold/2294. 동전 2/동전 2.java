@@ -15,7 +15,6 @@ public class Main {
             coin[i] = Integer.parseInt(br.readLine());
 
         Arrays.fill(dp, 1000000000);
-        Arrays.sort(coin, 0,n);
         dp[0] = 0;
         for (int i = 0; i < n; i++){
             for (int j = coin[i]; j <= k; j++){
