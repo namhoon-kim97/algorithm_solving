@@ -4,14 +4,7 @@ import java.util.*;
 public class Main {
     static int[] attack = new int[21];
     static int[] pleasure = new int[21];
-    static int[][] dp = new int[21][101];
-
-    static int dfs(int cnt, int hp){
-        if (cnt == 0 || hp == 0) return 0;
-        if (dp[cnt][hp] != -1) return dp[cnt][hp];
-        if (attack[cnt] >= hp) return dp[cnt][hp] = dfs(cnt - 1, hp);
-        else return dp[cnt][hp] = Math.max(dfs(cnt - 1, hp - attack[cnt]) + pleasure[cnt], dfs(cnt - 1, hp));
-    }
+    static int[][] dp = new int[101][21];
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -24,10 +17,14 @@ public class Main {
         for (int i = 1; i <= n; i++){
             pleasure[i] = Integer.parseInt(st.nextToken());
         }
-        for (int i = 1 ; i <= n; i++)
-            for (int j = 1; j <= 100; j++)
-                dp[i][j] = -1;
 
-        System.out.println(dfs(n,100));
+        for (int i = 1; i <= 100; i++){
+            for (int j = 1; j <= n; j++){
+                if(i - attack[j] > 0)
+                    dp[i][j] = Math.max(dp[i][j-1], dp[i-attack[j]][j-1] + pleasure[j]);
+                else dp[i][j] = dp[i][j-1];
+            }
+        }
+        System.out.println(dp[100][n]);
     }
 }
