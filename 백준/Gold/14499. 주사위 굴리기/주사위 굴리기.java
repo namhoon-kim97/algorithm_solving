@@ -7,6 +7,8 @@ public class Main {
     static int n,m,x,y,k;
     static int[][] board = new int[21][21];
     static int[] dice = new int[7];
+    static int[] dx = {-100,0, 0, -1, 1}; // 동, 서, 북, 남
+    static int[] dy = {-100,1, -1, 0, 0};
 
     static void east(){
         int[] temp = new int[7];
@@ -80,49 +82,36 @@ public class Main {
             }
         }
         st = new StringTokenizer(br.readLine());
+        StringBuilder sb = new StringBuilder();
         for (int i = 0; i < k; i++){
             int d = Integer.parseInt(st.nextToken());
-            boolean flag = true;
+            int nx = x + dx[d];
+            int ny = y + dy[d];
+
+            if (nx < 0 || ny < 0 || nx >= n || ny >= m)
+                continue;
+            x = nx;
+            y = ny;
             switch(d){
                 case 1:
-                    if (y + 1 >= m) {
-                        flag = false;
-                        break;
-                    }
-                    y += 1;
                     east();
                     fillDice(x,y);
                     break;
                 case 2:
-                    if (y - 1 < 0){
-                        flag = false;
-                        break;
-                    }
-                    y -= 1;
                     west();
                     fillDice(x,y);
                     break;
                 case 3:
-                    if (x - 1 < 0){
-                        flag = false;
-                        break;
-                    }
-                    x -= 1;
                     north();
                     fillDice(x,y);
                     break;
                 case 4:
-                    if (x + 1 >= n){
-                        flag = false;
-                        break;
-                    }
-                    x += 1;
                     south();
                     fillDice(x,y);
                     break;
             }
-            if (flag)
-                System.out.println(dice[1]);
+            sb.append(dice[1]).append("\n");
         }
+        System.out.println(sb);
     }
 }
