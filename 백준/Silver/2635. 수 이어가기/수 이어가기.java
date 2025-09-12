@@ -9,29 +9,37 @@ public class Main {
         //StringTokenizer st = new StringTokenizer(br.readLine());
         int n = Integer.parseInt(br.readLine());
 
-        int first = n;
-        int num = 0;
-        List<Integer> ret = new ArrayList<>();
-        ret.add(n);
+        int bestSecond = 0;
+        int bestLen = 0;
         for (int i = n ; i > 0; i--){
-            List<Integer> res = new ArrayList<>();
-            first = n;
+            int first = n;
             int second = i;
-            while (first >= 0){
+            int len = 0;
+            while (true){
                 if (first < second) break;
-                res.add(first - second);
                 int temp = second;
                 second = first - second;
                 first = temp;
+                len++;
             }
 
-            if (num < res.size()){
-                num = res.size();
-                ret.clear();
-                ret.add(n);
-                ret.add(i);
-                ret.addAll(res);
+            if (len > bestLen){
+                bestLen = len;
+                bestSecond = i;
             }
+        }
+
+        List<Integer> ret = new ArrayList<>();
+        ret.add(n);
+        ret.add(bestSecond);
+        int first = n;
+        int second = bestSecond;
+        while (true){
+            if (first < second) break;
+            int temp = second;
+            second = first - second;
+            first = temp;
+            ret.add(second);
         }
 
         System.out.println(ret.size());
