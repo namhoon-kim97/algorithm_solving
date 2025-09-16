@@ -1,21 +1,25 @@
 import java.util.*;
+
 class Solution {
     public int solution(int cacheSize, String[] cities) {
-        Map<String, Integer> m = new LinkedHashMap<>(cacheSize, 0.75f, true);
-        int answer = 0;
-        for (String city : cities){
-            city = city.toLowerCase();
-            if (m.getOrDefault(city,-1) == -1){
-                answer += 5;
-                m.put(city, 1);
-                if (m.size() > cacheSize){
-                    String oldestKey = m.keySet().iterator().next();
-                    m.remove(oldestKey);
-                }
+        LinkedHashMap<String, Integer> lm = new LinkedHashMap<>(cacheSize, 0.75f, true);
+        int res = 0;
+        for (String s : cities){
+            s = s.toLowerCase();
+            if (lm.getOrDefault(s,0) != 0){
+                res += 1;
             } else {
-                answer += 1;
+                lm.put(s, 1);
+                res += 5;
+                if (lm.size() > cacheSize){
+                    for (Map.Entry<String,Integer> entry : lm.entrySet()){
+                        lm.remove(entry.getKey());
+                        break;
+                    }
+                }
             }
         }
-        return answer;
+        
+        return res;
     }
 }
