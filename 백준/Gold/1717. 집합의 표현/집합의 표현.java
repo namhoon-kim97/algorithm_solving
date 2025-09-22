@@ -23,7 +23,7 @@ public class Main {
 
     static int find(int a){
         if (p[a] < 0) return a;
-        return p[a] = find(p[a]);
+        return find(p[a]);
     }
 
     public static void main(String[] args) throws IOException {
